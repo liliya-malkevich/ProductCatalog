@@ -9,8 +9,8 @@ namespace products_catalog.Server.Database
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
+            //Database.EnsureDeleted();
+            //Database.EnsureCreated();
 
             //CategoryItem category1 = new CategoryItem{Name = "Еда" };
             //CategoryItem category2 = new CategoryItem { Name = "Вкусности" };
@@ -85,5 +85,5 @@ namespace products_catalog.Server.Database
                 Description = "В бутылках"
             });
         }
-        }
+    }
 }

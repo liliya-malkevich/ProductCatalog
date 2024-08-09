@@ -13,15 +13,16 @@ namespace products_catalog.Server.Repositories.Impl
         }
         public IEnumerable<Product> Get()
         {
-            return Context.Products;
+            return Context.Products.Include(x => x.CategoryItem);
         }
         public Product Get(int Id)
         {
-            return Context.Products.Find(Id);
+            return Context.Products.Include(x => x.CategoryItem).FirstOrDefault(x => x.Id == Id);
         }
 
         public void Create(Product item)
         {
+            item.CategoryItem = Context.Categories.Single(x => x.Id == item.CategoryItemId);
             Context.Products.Add(item);
             Context.SaveChanges();
         }
@@ -33,6 +34,8 @@ namespace products_catalog.Server.Repositories.Impl
             currentItem.CategoryItemId = item.CategoryItemId;
             currentItem.Note = item.Note;
             currentItem.NoteSpec = item.NoteSpec;
+
+
 
             Context.Products.Update(currentItem);
             Context.SaveChanges();

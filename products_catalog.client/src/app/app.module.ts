@@ -4,16 +4,31 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LayoutComponent } from './shared/layout/layout.component';
+import { HeaderComponent } from './shared/layout/header/header.component';
+import { FooterComponent } from './shared/layout/footer/footer.component';
+import { MainComponent } from './views/main/main.component';
+import { CategoryComponent } from './views/category/category.component';
+import { ProductComponent } from './views/product/product.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LayoutComponent,
+    HeaderComponent,
+    FooterComponent,
+    MainComponent,
+    ProductComponent,
   ],
   imports: [
-    BrowserModule, HttpClientModule,
-    AppRoutingModule
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    NgbModule,
+    CategoryComponent,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

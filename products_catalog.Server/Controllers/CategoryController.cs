@@ -8,10 +8,10 @@ namespace products_catalog.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryConrtroller : Controller
+    public class CategoryController : Controller
     {
         IBaseRepo<CategoryItem> _repo;
-        public CategoryConrtroller(IBaseRepo<CategoryItem> catRepository)
+        public CategoryController(IBaseRepo<CategoryItem> catRepository)
         {
             _repo = catRepository;
         }
