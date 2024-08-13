@@ -16,4 +16,8 @@ export class ProductService extends HttpService {
   public getProducts(): Observable<IProduct[]> {
     return this.sendRequest(this.baseUrl + `api/Product`);
   }
+
+  public addProduct(product: IProduct): Observable<IProduct> {
+    return this.sendRequest(this.baseUrl + `api/Product`, 'POST', product);
+  }
 }

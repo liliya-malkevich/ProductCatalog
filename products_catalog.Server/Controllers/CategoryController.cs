@@ -17,15 +17,15 @@ namespace products_catalog.Server.Controllers
         }
 
         [HttpGet(Name = "GetAllCategories")]
-        public IEnumerable<CategoryItem> Get()
+        public async Task<IEnumerable<CategoryItem>> Get()
         {
-            return _repo.Get();
+            return await _repo.Get();
         }
 
         [HttpGet("{Id}", Name = "GetCategory")]
-        public IActionResult Get(int Id)
+        public async Task<IActionResult> Get(int Id)
         {
-            CategoryItem item = _repo.Get(Id);
+            CategoryItem item = await _repo.Get(Id);
 
             if (item == null)
             {
@@ -36,38 +36,38 @@ namespace products_catalog.Server.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CategoryItem item)
+        public async Task<IActionResult> Create([FromBody] CategoryItem item)
         {
             if (item == null)
             {
                 return BadRequest();
             }
-            _repo.Create(item);
+            await _repo.Create(item);
             return CreatedAtRoute("GetCategory", new { id = item.Id }, item);
         }
 
         [HttpPut("{Id:int}")]
-        public IActionResult Update(int Id, [FromBody] CategoryItem item)
+        public async Task<IActionResult> Update(int Id, [FromBody] CategoryItem item)
         {
             if (item == null || item.Id != Id)
             {
                 return BadRequest();
             }
 
-            CategoryItem currentItem = _repo.Get(Id);
+            CategoryItem currentItem = await _repo.Get(Id);
             if (currentItem == null)
             {
                 return NotFound();
             }
 
-            _repo.Update(item);
+            await _repo.Update(item);
             return RedirectToRoute("GetAllCategories");
         }
 
         [HttpDelete("{Id}")]
-        public IActionResult Delete(int Id)
+        public async Task<IActionResult> Delete(int Id)
         {
-            CategoryItem deletedItem = _repo.Delete(Id);
+            CategoryItem deletedItem = await _repo.Delete(Id);
 
             if (deletedItem == null)
             {

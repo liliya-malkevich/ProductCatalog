@@ -1,1 +1,12 @@
-<p>product works!</p>
+<dx-data-grid keyExpr="id" [dataSource]="products" [showBorders]="true" [wordWrapEnabled]="true"
+  class="col-md-6 col-sm-10 col-12" [focusedRowEnabled]="true">
+  <dxo-selection mode="single"></dxo-selection>
+  <dxi-column dataField="id" caption="№" width="50"></dxi-column>
+  <dxi-column dataField="name" caption="Наименование продукта"></dxi-column>
+  <dxi-column dataField="categoryItem.name" caption="Категория"></dxi-column>
+  <dxi-column dataField="description" caption="Описание"></dxi-column>
+  <dxi-column dataField="price" caption="Стоимость в рублях"></dxi-column>
+  <dxi-column dataField="note" caption="Примечание общее"></dxi-column>
+  <dxi-column dataField="noteSpec" caption="Примечание специальное"></dxi-column>
+  <dxo-load-panel [enabled]="false"></dxo-load-panel>
+</dx-data-grid>

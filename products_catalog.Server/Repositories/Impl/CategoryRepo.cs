@@ -1,4 +1,5 @@
-﻿using products_catalog.Server.Database;
+﻿using Microsoft.EntityFrameworkCore;
+using products_catalog.Server.Database;
 using products_catalog.Server.Models;
 
 namespace products_catalog.Server.Repositories.Impl
@@ -10,37 +11,37 @@ namespace products_catalog.Server.Repositories.Impl
         {
             Context = context;
         }
-        public IEnumerable<CategoryItem> Get()
+        public async Task<IEnumerable<CategoryItem>> Get()
         {
-            return Context.Categories;
+            return await Context.Categories.ToListAsync();
         }
-        public CategoryItem Get(int Id)
+        public async Task<CategoryItem> Get(int Id)
         {
-            return Context.Categories.Find(Id);
+            return await Context.Categories.FindAsync(Id);
         }
 
-        public void Create(CategoryItem item)
+        public async Task Create(CategoryItem item)
         {
-            Context.Categories.Add(item);
-            Context.SaveChanges();
+           await Context.Categories.AddAsync(item);
+           await Context.SaveChangesAsync();
         }
-        public void Update(CategoryItem item)
+        public async Task Update(CategoryItem item)
         {
-            CategoryItem currentItem = Get(item.Id);
+            CategoryItem currentItem = await Get(item.Id);
             currentItem.Name = item.Name;
 
             Context.Categories.Update(currentItem);
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
 
-        public CategoryItem Delete(int Id)
+        public async Task<CategoryItem> Delete(int Id)
         {
-            CategoryItem item = Get(Id);
+            CategoryItem item = await Get(Id);
 
             if (item != null)
             {
                 Context.Categories.Remove(item);
-                Context.SaveChanges();
+                await Context.SaveChangesAsync();
             }
 
             return item;

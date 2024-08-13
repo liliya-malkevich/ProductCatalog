@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using products_catalog.Server.Models;
+using System.Data;
 using System.Reflection.Metadata;
 
 namespace products_catalog.Server.Database
@@ -23,10 +24,49 @@ namespace products_catalog.Server.Database
         }
         public DbSet<CategoryItem> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
-
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Role { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Role>().HasData(new Role
+            {
+                Id = 1,
+                Name = "admin"
+            });
+            modelBuilder.Entity<Role>().HasData(new Role
+            {
+                Id = 2,
+                Name = "advancedUser"
+            });
+            modelBuilder.Entity<Role>().HasData(new Role
+            {
+                Id = 3,
+                Name = "user"
+            });
+
+            modelBuilder.Entity<User>().HasData(new User
+            {
+                Id = 1,
+                PswdHash = "12345678Qq",
+                RoleId =  1,
+                Email = "admin@gmail.com"
+            });
+            modelBuilder.Entity<User>().HasData(new User
+            {
+                Id = 2,
+                PswdHash = "12345678Qq1",
+                RoleId = 2,
+                Email = "advancedUser@gmail.com"
+            });
+            modelBuilder.Entity<User>().HasData(new User
+            {
+                Id = 3,
+                PswdHash = "12345678Qq11",
+                RoleId = 3,
+                Email = "user@gmail.com"
+            });
 
             modelBuilder.Entity<CategoryItem>().HasData(new CategoryItem
             {

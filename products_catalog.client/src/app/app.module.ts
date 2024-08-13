@@ -10,7 +10,6 @@ import { HeaderComponent } from './shared/layout/header/header.component';
 import { FooterComponent } from './shared/layout/footer/footer.component';
 import { MainComponent } from './views/main/main.component';
 import { CategoryComponent } from './views/category/category.component';
-import { ProductComponent } from './views/product/product.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,6 @@ import { ProductComponent } from './views/product/product.component';
     HeaderComponent,
     FooterComponent,
     MainComponent,
-    ProductComponent,
   ],
   imports: [
     BrowserModule,

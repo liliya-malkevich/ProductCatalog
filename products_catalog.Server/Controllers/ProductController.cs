@@ -16,15 +16,15 @@ namespace products_catalog.Server.Controllers
         }
 
         [HttpGet(Name = "GetAllProducts")]
-        public IEnumerable<Product> Get()
+        public async Task<IEnumerable<Product>> Get()
         {
-            return _repo.Get();
+            return await _repo.Get();
         }
 
         [HttpGet("{Id}", Name = "GetProduct")]
-        public IActionResult Get(int Id)
+        public async Task<IActionResult> Get(int Id)
         {
-            Product item = _repo.Get(Id);
+            Product item = await _repo.Get(Id);
 
             if (item == null)
             {
@@ -35,38 +35,38 @@ namespace products_catalog.Server.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] Product item)
+        public async Task<IActionResult> Create([FromBody] Product item)
         {
             if (item == null)
             {
                 return BadRequest();
             }
-            _repo.Create(item);
+            await _repo.Create(item);
             return CreatedAtRoute("GetProduct", new { id = item.Id }, item);
         }
 
         [HttpPut("{Id:int}")]
-        public IActionResult Update(int Id, [FromBody] Product item)
+        public async Task<IActionResult> Update(int Id, [FromBody] Product item)
         {
             if (item == null || item.Id != Id)
             {
                 return BadRequest();
             }
 
-            Product currentItem = _repo.Get(Id);
+            Product currentItem = await _repo.Get(Id);
             if (currentItem == null)
             {
                 return NotFound();
             }
 
-            _repo.Update(item);
+            await _repo.Update(item);
             return RedirectToRoute("GetAllProducts");
         }
 
         [HttpDelete("{Id}")]
-        public IActionResult Delete(int Id)
+        public async Task<IActionResult> Delete(int Id)
         {
-            Product deletedItem = _repo.Delete(Id);
+            Product deletedItem = await _repo.Delete(Id);
 
             if (deletedItem == null)
             {

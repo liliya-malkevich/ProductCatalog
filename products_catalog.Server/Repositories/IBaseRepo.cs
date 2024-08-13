@@ -2,10 +2,10 @@
 {
     public interface IBaseRepo<TDbModel>
     {
-        public IEnumerable<TDbModel> Get();
-        public TDbModel Get(int id);
-        public void Create(TDbModel model);
-        public void Update(TDbModel model);
-        public TDbModel Delete(int id);
+        public Task<IEnumerable<TDbModel>> Get();
+        public Task<TDbModel> Get(int id);
+        public Task Create(TDbModel model);
+        public Task Update(TDbModel model);
+        public Task<TDbModel> Delete(int id);
     }
 }

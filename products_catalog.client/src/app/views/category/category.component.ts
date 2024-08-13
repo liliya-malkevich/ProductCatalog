@@ -1,14 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { DxDataGridComponent, DxDataGridModule } from 'devextreme-angular';
+import {
+  DxButtonModule,
+  DxDataGridComponent,
+  DxDataGridModule,
+} from 'devextreme-angular';
 import { CategoryService } from '../../shared/services/category.service';
 import { ICategory } from '../../models/category';
+import { ToolbarPreparingEvent } from 'devextreme/ui/data_grid';
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrl: './category.component.css',
   standalone: true,
-  imports: [DxDataGridModule],
+  imports: [DxDataGridModule, DxButtonModule],
   providers: [CategoryService],
 })
 export class CategoryComponent implements OnInit {
@@ -20,4 +25,14 @@ export class CategoryComponent implements OnInit {
       this.categories = data;
     });
   }
+
+  public onToolbarPreparing(e: ToolbarPreparingEvent): void {
+    e.toolbarOptions.items?.unshift({
+      location: 'before',
+      template: 'actionBtnGroup',
+      locateInMenu: 'auto',
+    });
+  }
+
+  public createCategory() {}
 }

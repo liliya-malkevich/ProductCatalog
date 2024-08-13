@@ -11,24 +11,24 @@ namespace products_catalog.Server.Repositories.Impl
         {
             Context = context;
         }
-        public IEnumerable<Product> Get()
+        public async Task<IEnumerable<Product>> Get()
         {
-            return Context.Products.Include(x => x.CategoryItem);
+            return await Context.Products.Include(x => x.CategoryItem).ToListAsync();
         }
-        public Product Get(int Id)
+        public async Task<Product> Get(int Id)
         {
-            return Context.Products.Include(x => x.CategoryItem).FirstOrDefault(x => x.Id == Id);
+            return await Context.Products.Include(x => x.CategoryItem).FirstOrDefaultAsync(x => x.Id == Id);
         }
 
-        public void Create(Product item)
+        public async Task Create(Product item)
         {
-            item.CategoryItem = Context.Categories.Single(x => x.Id == item.CategoryItemId);
-            Context.Products.Add(item);
-            Context.SaveChanges();
+            item.CategoryItem = await Context.Categories.SingleAsync(x => x.Id == item.CategoryItemId);
+           await Context.Products.AddAsync(item);
+            await Context.SaveChangesAsync();
         }
-        public void Update(Product item)
+        public async Task Update(Product item)
         {
-            Product currentItem = Get(item.Id);
+            Product currentItem = await Get(item.Id);
             currentItem.Name = item.Name;
             currentItem.Price = item.Price;
             currentItem.CategoryItemId = item.CategoryItemId;
@@ -38,17 +38,17 @@ namespace products_catalog.Server.Repositories.Impl
 
 
             Context.Products.Update(currentItem);
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
 
-        public Product Delete(int Id)
+        public async Task<Product> Delete(int Id)
         {
-            Product item = Get(Id);
+            Product item = await Get(Id);
 
             if (item != null)
             {
                 Context.Products.Remove(item);
-                Context.SaveChanges();
+                await Context.SaveChangesAsync();
             }
 
             return item;
