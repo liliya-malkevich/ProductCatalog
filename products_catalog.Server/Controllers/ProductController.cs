@@ -45,22 +45,22 @@ namespace products_catalog.Server.Controllers
             return CreatedAtRoute("GetProduct", new { id = item.Id }, item);
         }
 
-        [HttpPut("{Id:int}")]
-        public async Task<IActionResult> Update(int Id, [FromBody] Product item)
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] Product item)
         {
-            if (item == null || item.Id != Id)
+            if (item == null)
             {
                 return BadRequest();
             }
 
-            Product currentItem = await _repo.Get(Id);
+            Product currentItem = await _repo.Get(item.Id);
             if (currentItem == null)
             {
                 return NotFound();
             }
 
             await _repo.Update(item);
-            return RedirectToRoute("GetAllProducts");
+            return CreatedAtRoute("GetProduct", new { id = item.Id }, item);
         }
 
         [HttpDelete("{Id}")]

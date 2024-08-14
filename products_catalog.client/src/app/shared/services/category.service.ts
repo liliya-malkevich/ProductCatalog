@@ -26,11 +26,7 @@ export class CategoryService extends HttpService {
   }
 
   public updateCategory(category: ICategory): Observable<ICategory> {
-    return this.sendRequest(
-      this.baseUrl + `api/Category${category.id}`,
-      'PUT',
-      category
-    );
+    return this.sendRequest(this.baseUrl + `api/Category`, 'PUT', category);
   }
 
   public deleteCategory(id: number): Observable<ICategory> {

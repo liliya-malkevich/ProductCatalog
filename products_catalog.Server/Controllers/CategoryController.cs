@@ -46,22 +46,22 @@ namespace products_catalog.Server.Controllers
             return CreatedAtRoute("GetCategory", new { id = item.Id }, item);
         }
 
-        [HttpPut("{Id:int}")]
-        public async Task<IActionResult> Update(int Id, [FromBody] CategoryItem item)
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] CategoryItem item)
         {
-            if (item == null || item.Id != Id)
+            if (item == null)
             {
                 return BadRequest();
             }
 
-            CategoryItem currentItem = await _repo.Get(Id);
+            CategoryItem currentItem = await _repo.Get(item.Id);
             if (currentItem == null)
             {
                 return NotFound();
             }
 
             await _repo.Update(item);
-            return RedirectToRoute("GetAllCategories");
+            return CreatedAtRoute("GetCategory", new { id = item.Id }, item);
         }
 
         [HttpDelete("{Id}")]

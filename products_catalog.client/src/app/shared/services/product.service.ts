@@ -20,4 +20,12 @@ export class ProductService extends HttpService {
   public addProduct(product: IProduct): Observable<IProduct> {
     return this.sendRequest(this.baseUrl + `api/Product`, 'POST', product);
   }
+
+  public deleteProduct(id: number): Observable<IProduct> {
+    return this.sendRequest(this.baseUrl + `api/Product/${id}`, 'DELETE');
+  }
+
+  public updateProduct(product: IProduct): Observable<IProduct> {
+    return this.sendRequest(this.baseUrl + `api/Product`, 'PUT', product);
+  }
 }
