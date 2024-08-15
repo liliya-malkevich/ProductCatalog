@@ -34,7 +34,7 @@ namespace products_catalog.Server.Repositories.Impl
             currentItem.CategoryItemId = item.CategoryItemId;
             currentItem.Note = item.Note;
             currentItem.NoteSpec = item.NoteSpec;
-
+            currentItem.Description = item.Description;
 
 
             Context.Products.Update(currentItem);

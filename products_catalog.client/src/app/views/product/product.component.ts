@@ -16,6 +16,7 @@ import {
 } from 'devextreme/ui/data_grid';
 import { CategoryService } from '../../shared/services/category.service';
 import { ICategory } from '../../models/category';
+import notify from 'devextreme/ui/notify';
 
 @Component({
   selector: 'app-product',

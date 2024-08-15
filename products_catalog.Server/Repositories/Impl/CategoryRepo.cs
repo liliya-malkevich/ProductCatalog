@@ -40,6 +40,7 @@ namespace products_catalog.Server.Repositories.Impl
 
             if (item != null)
             {
+                await Context.Products.Where(p => p.CategoryItemId == item.Id).ForEachAsync(i => Context.Products.Remove(i));
                 Context.Categories.Remove(item);
                 await Context.SaveChangesAsync();
             }

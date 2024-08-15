@@ -11,7 +11,7 @@ using products_catalog.Server.Database;
 namespace products_catalog.Server.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240809084129_Init")]
+    [Migration("20240815135245_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -95,7 +95,7 @@ namespace products_catalog.Server.Migrations
                             Id = 1,
                             CategoryItemId = 1,
                             Description = "Селедка соленая",
-                            Name = "Селедка соленая",
+                            Name = "Селедка",
                             Note = "Акция",
                             NoteSpec = "Пересоленая",
                             Price = "10000"
@@ -105,7 +105,7 @@ namespace products_catalog.Server.Migrations
                             Id = 2,
                             CategoryItemId = 1,
                             Description = "Тушенка говяжья",
-                            Name = "Тушенка говяжья",
+                            Name = "Тушенка",
                             Note = "Вкусная",
                             NoteSpec = "Жилы",
                             Price = "20000"
@@ -132,6 +132,88 @@ namespace products_catalog.Server.Migrations
                         });
                 });
 
+            modelBuilder.Entity("products_catalog.Server.Models.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Role");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "advancedUser"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "user"
+                        });
+                });
+
+            modelBuilder.Entity("products_catalog.Server.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PswdHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "admin@gmail.com",
+                            PswdHash = "12345678Qq",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "advancedUser@gmail.com",
+                            PswdHash = "12345678Qq1",
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Email = "user@gmail.com",
+                            PswdHash = "12345678Qq11",
+                            RoleId = 3
+                        });
+                });
+
             modelBuilder.Entity("products_catalog.Server.Models.Product", b =>
                 {
                     b.HasOne("products_catalog.Server.Models.CategoryItem", "CategoryItem")
@@ -141,6 +223,17 @@ namespace products_catalog.Server.Migrations
                         .IsRequired();
 
                     b.Navigation("CategoryItem");
+                });
+
+            modelBuilder.Entity("products_catalog.Server.Models.User", b =>
+                {
+                    b.HasOne("products_catalog.Server.Models.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
                 });
 #pragma warning restore 612, 618
         }

@@ -10,17 +10,6 @@ namespace products_catalog.Server.Database
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-            //Database.EnsureDeleted();
-            //Database.EnsureCreated();
-
-            //CategoryItem category1 = new CategoryItem{Name = "Еда" };
-            //CategoryItem category2 = new CategoryItem { Name = "Вкусности" };
-            //CategoryItem category3 = new CategoryItem { Name = "Вода" };
-            //Product product1 = new Product { Name = "Селедка соленая", CategoryItemId = 1,Price = "10000",Note = "Акция",NoteSpec = "Пересоленая",Description = "Селедка соленая" };
-            //Product product2 = new Product {  };
-            //Product product3 = new Product {  };
-            //Product product4 = new Product {  };
-        
         }
         public DbSet<CategoryItem> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
@@ -86,7 +75,7 @@ namespace products_catalog.Server.Database
             modelBuilder.Entity<Product>().HasData(new Product
             {
                 Id = 1,
-                Name = "Селедка соленая",
+                Name = "Селедка",
                 CategoryItemId = 1,
                 Price = "10000",
                 Note = "Акция",
@@ -96,7 +85,7 @@ namespace products_catalog.Server.Database
             modelBuilder.Entity<Product>().HasData(new Product
             {
                 Id = 2,
-                Name = "Тушенка говяжья",
+                Name = "Тушенка",
                 CategoryItemId = 1,
                 Price = "20000",
                 Note = "Вкусная",
